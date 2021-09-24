@@ -1,0 +1,10 @@
+---
+- hosts: webservers
+
+  tasks:
+   - name: Add secondary Groups to user
+     user: name="{{deployer}}" groups="{{sshusers}}" append=yes
+     when: '"{{item}}" in etc_groups.stdout_lines'
+     with_items: 
+          - sudo
+          - wheel

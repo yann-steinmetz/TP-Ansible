@@ -1,0 +1,12 @@
+---
+- hosts: webservers
+  become: yes
+  become_user: root
+  become_method: sudo
+
+  tasks:
+  - name: Installation des paquets communs à tous les serveurs
+    apt:
+      update_cache: yes
+      state: latest
+      name: ['glances', 'pwgen', 'sudo', 'tar', 'unzip', 'vim', 'whois']

@@ -1,0 +1,9 @@
+---
+
+  - hosts: webservers
+    roles:
+
+    tasks:
+      - name: Install Dolibarr 
+        apt: name={{ dolibarr }} update_cache=yes state=latest force_apt_get=yes
+        loop: [ 'dolibarr' ]

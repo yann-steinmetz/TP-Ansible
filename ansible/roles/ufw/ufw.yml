@@ -1,0 +1,39 @@
+---
+- hosts: ufw
+  tasks:
+    - name: ensure ufw installed
+      apt:
+        name: ufw
+        update_cache: true
+      
+    - name: ufw deny incoming
+      ufw:
+        direction: incoming
+        proto: any
+        policy: deny
+      notify:
+      - reload ufw
+
+    - name: ufw allow outgoing
+      ufw:
+        direction: outgoing
+        proto: any
+        policy: allow
+      notify:
+      - reload ufw
+
+    - name: ufw allow OpenSSH
+      ufw:
+        rule: allow
+        name: OpenSSH
+      notify:
+      - reload ufw
+
+    - name: enable ufw service
+      ufw:
+        state: enabled
+
+  handlers:
+    - name: reload ufw
+      ufw:
+        state: reloaded

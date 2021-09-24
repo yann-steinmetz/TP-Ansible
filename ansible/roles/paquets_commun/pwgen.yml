@@ -1,0 +1,8 @@
+---
+
+- hosts: all
+
+  tasks:
+    - name: Install pwgen
+      apt: name={{ pwgen }} update_cache=yes state=latest force_apt_get=yes
+      loop: [ 'pwgen' ]
